@@ -1,82 +1,141 @@
+# 🧍 PostureAI
+
 <div align="center">
-🧍 PostureAI
 
-Real-time posture detection via webcam — built with Python & MediaPipe
+### Real-Time Posture Detection with Computer Vision
 
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
+Detect slouching, forward head posture, and shoulder imbalance directly from your webcam using **Python**, **OpenCV**, and **MediaPipe**.
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python\&logoColor=white)
+![MediaPipe](https://img.shields.io/badge/MediaPipe-Pose-FF6F00)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
-About
+---
 
-PostureAI uses your webcam and MediaPipe's pose estimation to detect bad posture in real time. It tracks key body landmarks and alerts you when it detects slouching, forward head position, or shoulder imbalance — right on your screen as it happens.
+## 📸 Demo
+
+<p align="center">
+  <img src="assets/demo.gif" width="850" alt="PostureAI Demo">
+</p>
+
+---
+
+## 🚀 About
+
+PostureAI is a real-time posture monitoring application that analyzes body posture through a webcam feed.
+
+Using MediaPipe Pose Estimation, the system tracks body landmarks and provides instant feedback whenever poor posture is detected.
 
 No wearables. No subscriptions. Just your webcam.
 
+---
 
-Features
+## ✨ Features
 
+* 🎯 Real-time pose tracking
+* ⚠️ Slouch detection
+* ⚠️ Forward head posture detection
+* ⚠️ Shoulder imbalance detection
+* 🖥️ Live visual feedback
+* 🔒 100% local processing
+* ⚡ Lightweight and fast
 
-🎯 Real-time pose detection via MediaPipe Pose landmarks
-⚠️ Bad posture alerts — slouch, forward head, uneven shoulders
-🖥️ On-screen feedback overlaid on the live webcam feed
-⚡ Lightweight — runs locally, no data sent anywhere
+---
 
+## 🛠️ Built With
 
+* Python
+* OpenCV
+* MediaPipe
+* NumPy
 
-Getting Started
+---
 
-Prerequisites
+## 📦 Installation
 
+### Clone the repository
 
-Python 3.10+
-A webcam
-
-
-Installation
-
-bashgit clone https://github.com/yourusername/PostureAI.git
+```bash
+git clone https://github.com/YOUR_USERNAME/PostureAI.git
 cd PostureAI
+```
+
+### Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-Run
+### Run the application
 
-bashpython main.py
+```bash
+python main.py
+```
 
-Press Q to quit.
+Press **Q** to quit.
 
+---
 
-Project Structure
+## 📂 Project Structure
 
+```text
 PostureAI/
-├── main.py           # Entry point — webcam loop
-├── detector.py       # MediaPipe pose detection
-├── feedback.py       # Posture analysis & alert logic
+│
+├── main.py          # Application entry point
+├── detector.py      # Pose landmark detection
+├── feedback.py      # Posture analysis logic
 ├── requirements.txt
 └── README.md
+```
 
+---
 
-Roadmap
+## 🧠 How It Works
 
+1. Capture webcam frames
+2. Extract pose landmarks using MediaPipe
+3. Calculate posture metrics
+4. Detect posture issues
+5. Display live feedback
 
- Real-time pose detection
- Slouch & forward head detection
- On-screen posture score
- Session history & progress tracking
- Notification alerts
- Dashboard UI
+---
 
+## 🗺️ Roadmap
 
+* [x] Real-time pose detection
+* [x] Slouch detection
+* [x] Forward head posture detection
+* [x] Shoulder alignment monitoring
+* [ ] Posture score
+* [ ] Session analytics
+* [ ] Progress tracking
+* [ ] Desktop notifications
+* [ ] Dashboard UI
 
-Contributing
+---
 
-Pull requests are welcome. For major changes, open an issue first.
+## 🤝 Contributing
 
+Contributions are welcome.
 
-License
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a Pull Request
 
-MIT
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+⭐ If you find this project useful, consider giving it a star.
+
+</div>
