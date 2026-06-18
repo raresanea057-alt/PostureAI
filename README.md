@@ -23,6 +23,12 @@ Detect slouching, forward head posture, and shoulder imbalance directly from you
 
 ---
 
+
+## Model
+
+Trained on the [Multi-Gait & Posture dataset](https://physionet.org/content/multi-gait-posture/1.0.0/) (PhysioNet).  
+Achieved **F1 score of 0.9229** on the validation set.
+
 ## 🚀 About
 
 PostureAI is a real-time posture monitoring application that analyzes body posture through a webcam feed.
@@ -36,9 +42,9 @@ No wearables. No subscriptions. Just your webcam.
 ## ✨ Features
 
 * 🎯 Real-time pose tracking
-* ⚠️ Slouch detection
-* ⚠️ Forward head posture detection
-* ⚠️ Shoulder imbalance detection
+* ⚠️ Slouch detection 
+* ⚠️ ### <TODO>Forward head posture detection
+* ⚠️ ### <TODO> Shoulder imbalance detection 
 * 🖥️ Live visual feedback
 * 🔒 100% local processing
 * ⚡ Lightweight and fast
