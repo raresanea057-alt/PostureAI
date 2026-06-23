@@ -21,154 +21,207 @@ Detect slouching, forward head posture, and shoulder imbalance directly from you
   <img src="assets/demo.gif" width="850" alt="PostureAI Demo">
 </p>
 
-*(Add a demo GIF to `assets/demo.gif` to show the app in action.)*
+> Replace `assets/demo.gif` with a recording of the application in action.
 
 ---
 
 ## 🚀 About the Project
 
-PostureAI is a real‑time posture monitoring application that uses your webcam to track body landmarks via **MediaPipe Pose**. It extracts geometric features (head tilt, shoulder slope, elbow positions, etc.) and feeds them into a **trained classifier** to instantly tell you if your posture is **Good** or **Bad**.
+PostureAI is a real-time posture monitoring application that uses your webcam to track body landmarks via **MediaPipe Pose**. It extracts geometric features (head tilt, shoulder slope, elbow positions, etc.) and feeds them into a trained classifier to instantly determine whether your posture is **Good** or **Bad**.
 
-All processing is done **locally** – no data is sent to the cloud. It’s privacy‑first, fast, and lightweight.
+All processing is performed **locally**—no data is uploaded to the cloud.
 
 ---
 
 ## ✨ Features
 
-- 🎯 **Real‑time pose tracking** – MediaPipe provides 33 body landmarks.
-- 🧘 **Personal calibration** – Sit in your best posture for 5 seconds to set a baseline.
-- 📊 **Smooth predictions** – Uses a moving average over 1.5 seconds to avoid jitter.
-- 🖥️ **Live visual feedback** – Landmarks, skeleton, and status text are overlaid on the video feed.
-- ⚠️ **Detects multiple posture issues**:
-  - Slouching (forward head posture)
-  - Shoulder asymmetry / imbalance
+- 🎯 Real-time pose tracking using **MediaPipe Pose**
+- 🧘 Personal 5-second calibration
+- 📊 Moving average prediction smoothing
+- 🖥️ Live landmark visualization
+- ⚠️ Detects:
+  - Slouching
+  - Forward head posture
+  - Shoulder imbalance
   - Poor elbow alignment
-- 🔒 **100% local** – No internet connection required after the first run.
-- ⚡ **Lightweight** – Runs on most modern laptops with a webcam.
+- 🔒 100% local processing
+- ⚡ Lightweight and fast
 
 ---
 
 ## 🛠️ Built With
 
-- **Python** 3.10+
-- **OpenCV** – video capture and display
-- **MediaPipe** – pose landmark detection
-- **NumPy** – numerical operations
-- **scikit‑learn** – model loading and scaling
-- **Joblib** – model serialisation
+- Python 3.10+
+- OpenCV
+- MediaPipe
+- NumPy
+- scikit-learn
+- Joblib
 
 ---
 
-## 📦 Installation
+# 📦 Installation
 
-### Prerequisites
+## Prerequisites
 
-- Python 3.10 or higher
-- A working webcam
-- Git (optional, for cloning)
+- Python 3.10+
+- Webcam
+- Git (optional)
 
-### Step‑by‑Step
+## 1. Clone the repository
 
-1. **Clone the repository**
+```bash
+git clone https://github.com/raresanea057-alt/PostureAI.git
+cd PostureAI
+```
 
-   ```bash
-   git clone https://github.com/raresanea057-alt/PostureAI.git
-   cd PostureAI
-Install the required packages
+## 2. Install dependencies
 
-bash
+```bash
 pip install -r requirements.txt
-If you don't have a requirements.txt, create one with the following content:
+```
 
-text
+If `requirements.txt` is missing, create one containing:
+
+```text
 opencv-python
 mediapipe
 numpy
 joblib
 scikit-learn
-Then run pip install -r requirements.txt.
+```
 
-Verify the trained model files
-The repository includes the pre‑trained model and scaler inside the model/ folder:
+Then install it:
 
-text
+```bash
+pip install -r requirements.txt
+```
+
+## 3. Verify model files
+
+The repository should contain:
+
+```text
 model/
-├── posture_model_optuna.pkl   # trained classifier
-└── scaler_optuna.pkl          # feature scaler
-If these are missing, you can train your own model using the provided notebooks (model.ipynb or mediapipe.ipynb), or download the pre‑trained files from the Releases page.
+├── posture_model_optuna.pkl
+└── scaler_optuna.pkl
+```
 
-Run the application
+If these files are missing, either:
 
-bash
+- Train your own model using `model.ipynb` or `mediapipe.ipynb`
+- Download the pretrained files from the project's Releases page
+
+## 4. Run the application
+
+```bash
 python posture_check.py
-On the first run, the script will automatically download the MediaPipe pose landmarker model (pose_landmarker_lite.task, ~10 MB) from Google’s servers.
+```
 
-🧘 How to Use
-Calibration – When the app starts, you’ll see a CALIBRATING screen.
-Sit upright in your best posture for 5 seconds. The system records your personal baseline.
+On the first run, MediaPipe automatically downloads:
 
-Real‑time feedback – After calibration, the app classifies your posture every frame.
+```text
+pose_landmarker_lite.task
+```
 
-Green text and landmarks = Good posture
+(~10 MB)
 
-Red text and landmarks = Bad posture
+---
 
-Press Q on your keyboard to quit the application.
+# 🧘 How to Use
 
-🧠 How It Works
-Webcam frames are captured continuously.
+### Calibration
 
-MediaPipe Pose extracts 33 body landmarks from each frame.
+When the application starts, you'll see a **CALIBRATING** screen.
 
-Landmarks are smoothed using exponential moving average to reduce noise.
+Sit in your best posture for **5 seconds** while the system records your baseline.
 
-14 geometric features are computed from the landmarks:
+### Real-time Detection
 
-Head tilt angle (nose vs. vertical)
+After calibration, every frame is classified as:
 
-Shoulder slope (angle between shoulders and horizontal)
+- 🟢 **Good posture**
+- 🔴 **Bad posture**
 
-Normalised nose distance from shoulder midpoint
+Press **Q** to quit.
 
-Left elbow position relative to left shoulder (Z, X, Y, distance)
+---
 
-Right elbow position relative to right shoulder (Z, X, Y, distance)
+# 🧠 How It Works
 
-Shoulder asymmetry (Y‑axis difference)
+1. Webcam frames are captured.
+2. MediaPipe Pose extracts **33 body landmarks**.
+3. Landmarks are smoothed using an exponential moving average.
+4. Fourteen geometric posture features are computed.
+5. Features are normalized with a pretrained `StandardScaler`.
+6. The classifier predicts posture quality.
+7. Predictions are averaged over the last **45 frames (~1.5 seconds)**.
+8. The result is displayed in real time.
 
-Head rotation (projected on horizontal plane)
+---
 
-Elbow‑to‑elbow distance (normalised by shoulder width)
+## Extracted Features
 
-The 14 features are scaled using a pre‑fitted StandardScaler.
+- Head tilt angle
+- Shoulder slope
+- Nose distance from shoulder midpoint
+- Left elbow (X, Y, Z, distance)
+- Right elbow (X, Y, Z, distance)
+- Shoulder asymmetry
+- Head rotation
+- Elbow-to-elbow distance
 
-A trained classifier (Random Forest / XGBoost) predicts the probability of “Good” posture.
+---
 
-Predictions are averaged over the last 45 frames (~1.5 seconds at 30 fps) to produce a smooth score.
+# 📂 Project Structure
 
-If the smoothed probability exceeds a threshold (default 0.5), the posture is classified as Good, otherwise Bad.
-
-Visual feedback (landmarks, skeleton, status text) is drawn on the frame and displayed.
-
-📂 Project Structure
-text
+```text
 PostureAI/
 │
-├── posture_check.py              # Main application script
+├── posture_check.py
 ├── model/
-│   ├── posture_model_optuna.pkl  # Trained classifier
-│   ├── scaler_optuna.pkl         # Scaler for feature normalisation
-│   └── pose_landmarker_lite.task # MediaPipe model (auto‑downloaded)
-├── mediapipe.ipynb               # Jupyter notebook for development/testing
-├── model.ipynb                   # Training notebook (if present)
-├── requirements.txt              # Python dependencies
-├── LICENSE                       # MIT License
-└── README.md                     # This file
-📊 Model Performance
-The classifier was trained on the Multi‑Gait & Posture dataset (PhysioNet), which contains labelled posture data.
+│   ├── posture_model_optuna.pkl
+│   ├── scaler_optuna.pkl
+│   └── pose_landmarker_lite.task
+├── mediapipe.ipynb
+├── model.ipynb
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
 
-Validation F1 Score: 0.9229
+---
 
-Classes: Good (0), Bad (1)
+# 📊 Model Performance
 
-The model was optimised using Optuna for hyperparameter tuning, resulting in robust performance across different body types and lighting conditions.
+The classifier was trained using the **Multi-Gait & Posture** dataset from **PhysioNet**.
+
+| Metric | Value |
+|---------|------:|
+| Validation F1 Score | **0.9229** |
+| Classes | Good (0), Bad (1) |
+
+Hyperparameters were optimized using **Optuna**, resulting in robust performance across different users and lighting conditions.
+
+---
+
+# 🔮 Future Improvements
+
+- Audio alerts for poor posture
+- Statistics dashboard
+- Session history
+- Multiple posture categories
+- Cross-platform desktop application
+- Mobile support
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a **⭐ Star** on GitHub.
