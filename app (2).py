@@ -257,7 +257,6 @@ with col_cam:
 
 # ── Camera loop ────────────────────────────────────────────────────────────────
 if start_btn:
-    global _prev_landmarks
     _prev_landmarks = None  # reset smoothing state
 
     detector, clf, scaler = load_models()
